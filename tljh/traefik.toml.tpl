@@ -5,6 +5,7 @@ defaultEntryPoints = ["http", "https"]
 defaultEntryPoints = ["http"]
 {% endif %}
 
+debug = true
 logLevel = "INFO"
 # log errors, which could be proxy errors
 [accessLog]
@@ -22,6 +23,9 @@ X-Xsrftoken = "redact"
 [respondingTimeouts]
 idleTimeout = "10m0s"
 
+[wss]
+protocol = "http"
+
 [entryPoints]
   [entryPoints.http]
   address = ":{{http['port']}}"
@@ -33,7 +37,6 @@ idleTimeout = "10m0s"
   {% if https['enabled'] %}
   [entryPoints.https]
   address = ":{{https['port']}}"
-  backend = "jupyterhub"
   [entryPoints.https.tls]
   {% if https['tls']['cert'] %}
     [[entryPoints.https.tls.certificates]]
@@ -57,13 +60,5 @@ entryPoint = "https"
 {% endif %}
 
 [file]
-
-[frontends]
-  [frontends.jupyterhub]
-  backend = "jupyterhub"
-  passHostHeader = true
-[backends]
-  [backends.jupyterhub]
-    [backends.jupyterhub.servers.chp]
-    url = "http://127.0.0.1:15003"
-
+filename = "/opt/tljh/state/rules.toml"
+watch = true

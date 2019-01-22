@@ -28,12 +28,6 @@ def test_default_config(tmpdir, tljh_dir):
         cfg = toml.loads(toml_cfg)
     assert cfg["defaultEntryPoints"] == ["http"]
     assert cfg["entryPoints"] == {"http": {"address": ":80"}}
-    assert cfg["frontends"] == {
-        "jupyterhub": {"backend": "jupyterhub", "passHostHeader": True}
-    }
-    assert cfg["backends"] == {
-        "jupyterhub": {"servers": {"chp": {"url": "http://127.0.0.1:15003"}}}
-    }
 
 
 def test_letsencrypt_config(tljh_dir):
@@ -57,7 +51,7 @@ def test_letsencrypt_config(tljh_dir):
     assert "acme" in cfg
     assert cfg["entryPoints"] == {
         "http": {"address": ":80", "redirect": {"entryPoint": "https"}},
-        "https": {"address": ":443", "backend": "jupyterhub", "tls": {}},
+        "https": {"address": ":443", "tls": {}},
     }
     assert cfg["acme"] == {
         "email": "fake@jupyter.org",
@@ -87,11 +81,10 @@ def test_manual_ssl_config(tljh_dir):
         "http": {"address": ":80", "redirect": {"entryPoint": "https"}},
         "https": {
             "address": ":443",
-            "backend": "jupyterhub",
             "tls": {
                 "certificates": [
                     {"certFile": "/path/to/ssl.cert", "keyFile": "/path/to/ssl.key"}
                 ]
             },
-        },
+        }
     }

@@ -58,9 +58,12 @@ def ensure_traefik_binary(prefix):
 def ensure_traefik_config(state_dir):
     """Render the traefik.toml config file"""
     config = load_config()
+    # with open(os.path.join(os.path.dirname(__file__), "rules.toml.tpl")) as f:
+    #     template_rules = Template(f.read())
     with open(os.path.join(os.path.dirname(__file__), "traefik.toml.tpl")) as f:
         template = Template(f.read())
     new_toml = template.render(config)
+    # new_rules = template_rules.render(config)
     https = config["https"]
     letsencrypt = https["letsencrypt"]
     tls = https["tls"]
@@ -77,6 +80,10 @@ def ensure_traefik_config(state_dir):
     with open(os.path.join(state_dir, "traefik.toml"), "w") as f:
         os.fchmod(f.fileno(), 0o744)
         f.write(new_toml)
+
+    with open(os.path.join(state_dir, "rules.toml"), "w") as f:
+        os.fchmod(f.fileno(), 0o744)
+        # f.write(new_rules)
 
     # ensure acme.json exists and is private
     with open(os.path.join(state_dir, "acme.json"), "a") as f:

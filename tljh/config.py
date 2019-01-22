@@ -187,7 +187,7 @@ def reload_component(component):
         print('Hub reload with new configuration complete')
     elif component == 'proxy':
         traefik.ensure_traefik_config(STATE_DIR)
-        systemd.restart_service('configurable-http-proxy')
+        # systemd.restart_service('configurable-http-proxy')
         systemd.restart_service('traefik')
         print('Proxy reload with new configuration complete')
 
