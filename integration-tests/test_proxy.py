@@ -54,7 +54,7 @@ def test_manual_https(preserve_config):
     assert server_cert == file_cert
 
     # verify that we can still connect to the hub
-    r = requests.get("https://127.0.0.1:8000/hub/api", verify=True)
+    r = requests.get("https://127.0.0.1/hub/api", verify=False)
     r.raise_for_status()
 
     # cleanup

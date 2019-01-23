@@ -6,7 +6,7 @@ defaultEntryPoints = ["http"]
 {% endif %}
 
 debug = true
-logLevel = "INFO"
+logLevel = "DEBUG"
 # log errors, which could be proxy errors
 [accessLog]
 format = "json"
@@ -19,12 +19,6 @@ Authorization = "redact"
 Cookie = "redact"
 Set-Cookie = "redact"
 X-Xsrftoken = "redact"
-
-[respondingTimeouts]
-idleTimeout = "10m0s"
-
-[wss]
-protocol = "http"
 
 [entryPoints]
   [entryPoints.http]
@@ -44,6 +38,17 @@ protocol = "http"
       keyFile = "{{https['tls']['key']}}"
   {% endif %}
   {% endif %}
+  [entryPoints.auth_api]
+  address = ":8099"
+  [entryPoints.auth_api.auth.basic]
+  users = ["api_admin:$apr1$eS/j3kum$q/X2khsIEG/bBGsteP.x./"]
+
+[wss]
+protocol = "http"
+
+[api]
+dashboard = true
+entrypoint = "auth_api"
 
 {% if https['enabled'] and https['letsencrypt']['email'] %}
 [acme]
