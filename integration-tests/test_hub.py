@@ -36,7 +36,7 @@ async def test_user_code_execute():
 
     # FIXME: wait for reload to finish & hub to come up
     # Should be part of tljh-config reload
-    await asyncio.sleep(1)
+    await asyncio.sleep(5)
 
     async with User(username, hub_url, partial(login_dummy, password='')) as u:
             await u.login()
@@ -64,7 +64,7 @@ async def test_user_admin_add():
 
     # FIXME: wait for reload to finish & hub to come up
     # Should be part of tljh-config reload
-    await asyncio.sleep(1)
+    await asyncio.sleep(5)
     async with User(username, hub_url, partial(login_dummy, password='')) as u:
             await u.login()
             await u.ensure_server()
@@ -94,7 +94,7 @@ async def test_user_admin_remove():
 
     # FIXME: wait for reload to finish & hub to come up
     # Should be part of tljh-config reload
-    await asyncio.sleep(1)
+    await asyncio.sleep(2)
     async with User(username, hub_url, partial(login_dummy, password='')) as u:
             await u.login()
             await u.ensure_server()
@@ -108,7 +108,7 @@ async def test_user_admin_remove():
 
             assert 0 == await (await asyncio.create_subprocess_exec(*TLJH_CONFIG_PATH, 'remove-item', 'users.admin', username)).wait()
             assert 0 == await (await asyncio.create_subprocess_exec(*TLJH_CONFIG_PATH, 'reload')).wait()
-            await asyncio.sleep(1)
+            await asyncio.sleep(2)
 
             await u.stop_server()
             await u.ensure_server()
@@ -132,7 +132,7 @@ async def test_long_username():
 
     # FIXME: wait for reload to finish & hub to come up
     # Should be part of tljh-config reload
-    await asyncio.sleep(1)
+    await asyncio.sleep(5)
     try:
         async with User(username, hub_url, partial(login_dummy, password='')) as u:
                 await u.login()

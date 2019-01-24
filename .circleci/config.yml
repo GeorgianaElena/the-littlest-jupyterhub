@@ -84,6 +84,11 @@ jobs:
                 command: |
                     py.test integration-tests/test_bootstrap.py
 
+            - run:
+                name: Run proxy test
+                command: |
+                    .circleci/integration-test.py run-test basic-tests test_proxy.py
+
 
 
     documentation:

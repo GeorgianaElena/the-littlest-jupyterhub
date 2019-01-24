@@ -18,8 +18,10 @@ from copy import deepcopy
 import os
 import re
 import sys
+import asyncio
 
 from .yaml import yaml
+from jupyterhub.utils import exponential_backoff
 
 
 INSTALL_PREFIX = os.environ.get('TLJH_INSTALL_PREFIX', '/opt/tljh')
@@ -184,11 +186,23 @@ def reload_component(component):
     if component == 'hub':
         systemd.restart_service('jupyterhub')
         # FIXME: Verify hub is back up?
+        # up = False
+        # while not up:
+        #     up = systemd.check_service_active('jupyterhub')
+
+        # await exponential_backoff(
+        #     systemd.check_service_enabled, "jupyterhub is not enabled", name='jupyterhub', timeout=20
+        # )
         print('Hub reload with new configuration complete')
     elif component == 'proxy':
         traefik.ensure_traefik_config(STATE_DIR)
-        # systemd.restart_service('configurable-http-proxy')
         systemd.restart_service('traefik')
+        # up = False
+        # while not up:
+        #     up = systemd.check_service_active('traefik')
+        # await exponential_backoff(
+        #     systemd.check_service_enabled, "Proxy is not enabled", name='traefik', timeout=20
+        # )
         print('Proxy reload with new configuration complete')
 
 
@@ -215,7 +229,6 @@ def _is_dict(item):
 
 def _is_list(item):
     return isinstance(item, Sequence)
-
 
 def main(argv=None):
     if os.geteuid() != 0:
@@ -309,7 +322,6 @@ def main(argv=None):
         reload_component(args.component)
     else:
         argparser.print_help()
-
 
 if __name__ == '__main__':
     main()

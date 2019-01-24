@@ -6,7 +6,6 @@ If we use a debian package instead, we can get rid of all this code.
 import subprocess
 import os
 
-
 def reload_daemon():
     """
     Equivalent to systemctl daemon-reload.
@@ -70,3 +69,36 @@ def enable_service(name):
         'enable',
         name
     ], check=True)
+
+
+def check_service_active(name):
+    """
+    Check if a service is currently active (running)
+
+    This most likely makes the service start on bootup
+    """
+    try:
+        subprocess.run([
+            'systemctl',
+            'is-active',
+            name
+        ], check=True)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+def check_service_enabled(name):
+    """
+    Check if a service is currently active (running)
+
+    This most likely makes the service start on bootup
+    """
+    try:
+        subprocess.run([
+            'systemctl',
+            'is-enabled',
+            name
+        ], check=True)
+        return True
+    except subprocess.CalledProcessError:
+        return False

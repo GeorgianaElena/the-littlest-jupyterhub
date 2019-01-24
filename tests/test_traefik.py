@@ -27,7 +27,15 @@ def test_default_config(tmpdir, tljh_dir):
         print(toml_cfg)
         cfg = toml.loads(toml_cfg)
     assert cfg["defaultEntryPoints"] == ["http"]
-    assert cfg["entryPoints"] == {"http": {"address": ":80"}}
+    assert cfg["entryPoints"] == {
+        "http": {"address": ":80"},
+        "auth_api": {
+            "address": ":8099",
+            "auth": {
+                "basic": {"users": ["api_admin:$apr1$eS/j3kum$q/X2khsIEG/bBGsteP.x./"]}
+            },
+        },
+    }
 
 
 def test_letsencrypt_config(tljh_dir):
@@ -52,6 +60,12 @@ def test_letsencrypt_config(tljh_dir):
     assert cfg["entryPoints"] == {
         "http": {"address": ":80", "redirect": {"entryPoint": "https"}},
         "https": {"address": ":443", "tls": {}},
+        "auth_api": {
+            "address": ":8099",
+            "auth": {
+                "basic": {"users": ["api_admin:$apr1$eS/j3kum$q/X2khsIEG/bBGsteP.x./"]}
+            },
+        },
     }
     assert cfg["acme"] == {
         "email": "fake@jupyter.org",
@@ -86,5 +100,11 @@ def test_manual_ssl_config(tljh_dir):
                     {"certFile": "/path/to/ssl.cert", "keyFile": "/path/to/ssl.key"}
                 ]
             },
-        }
+        },
+        "auth_api": {
+            "address": ":8099",
+            "auth": {
+                "basic": {"users": ["api_admin:$apr1$eS/j3kum$q/X2khsIEG/bBGsteP.x./"]}
+            },
+        },
     }
