@@ -21,7 +21,6 @@ import sys
 import asyncio
 
 from .yaml import yaml
-from jupyterhub.utils import exponential_backoff
 
 
 INSTALL_PREFIX = os.environ.get('TLJH_INSTALL_PREFIX', '/opt/tljh')
