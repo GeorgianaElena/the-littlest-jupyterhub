@@ -19,6 +19,9 @@ Cookie = "redact"
 Set-Cookie = "redact"
 X-Xsrftoken = "redact"
 
+[respondingTimeouts]
+idleTimeout = "10m0s"
+
 [entryPoints]
   [entryPoints.http]
   address = ":{{http['port']}}"

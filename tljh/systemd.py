@@ -111,7 +111,6 @@ def check_hub_ready():
         ])
 
         if "JupyterHub is now running at" in out.decode():
-            print("aiceaaaa!!!!!!!!!!!!!!!!!!!!!")
             return True
     except subprocess.CalledProcessError:
         return False

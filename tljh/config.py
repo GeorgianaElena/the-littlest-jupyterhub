@@ -155,7 +155,6 @@ def add_config_value(config_path, key_path, value):
     with open(config_path, 'w') as f:
         yaml.dump(config, f)
 
-# 'remove-item', 'users.admin', username
 def remove_config_value(config_path, key_path, value):
     """
     Remove value from list at key_path
@@ -184,7 +183,7 @@ def reload_component(component):
     from tljh import systemd, traefik
     if component == 'hub':
         systemd.restart_service('jupyterhub')
-        # FIXME: Verify hub is back up?
+        # Ensure hub is back up
         while not systemd.check_service_active('jupyterhub'):
             asyncio.sleep(1)
         while not systemd.check_hub_ready():

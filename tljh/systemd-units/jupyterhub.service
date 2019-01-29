@@ -1,7 +1,7 @@
 # Template file for JupyterHub systemd service
 # Uses simple string.format() for 'templating'
 [Unit]
-# CHP must have successfully started *before* we launch JupyterHub
+# Traefik must have successfully started *before* we launch JupyterHub
 Requires=traefik.service
 After=traefik.service
 
