@@ -92,7 +92,7 @@ def run_test(image_name, test_name, test_files, installer_args):
     )
     run_container_command(
         test_name,
-        'python3 -m pytest -v {}'.format(
+        'python3 -m pytest -v -s {}'.format(
             ' '.join([os.path.join('/srv/src/integration-tests/', f) for f in test_files])
         )
     )

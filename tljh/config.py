@@ -86,7 +86,7 @@ def add_item_to_config(config, property_path, value):
 
 def remove_item_from_config(config, property_path, value):
     """
-    Add an item to a list in config.
+    Remove an item from a list in config.
     """
     path_components = property_path.split('.')
 
@@ -155,7 +155,7 @@ def add_config_value(config_path, key_path, value):
     with open(config_path, 'w') as f:
         yaml.dump(config, f)
 
-
+# 'remove-item', 'users.admin', username
 def remove_config_value(config_path, key_path, value):
     """
     Remove value from list at key_path
@@ -185,23 +185,14 @@ def reload_component(component):
     if component == 'hub':
         systemd.restart_service('jupyterhub')
         # FIXME: Verify hub is back up?
-        # up = False
-        # while not up:
-        #     up = systemd.check_service_active('jupyterhub')
-
-        # await exponential_backoff(
-        #     systemd.check_service_enabled, "jupyterhub is not enabled", name='jupyterhub', timeout=20
-        # )
+        while not systemd.check_service_active('jupyterhub'):
+            asyncio.sleep(1)
+        while not systemd.check_hub_ready():
+            asyncio.sleep(1)
         print('Hub reload with new configuration complete')
     elif component == 'proxy':
         traefik.ensure_traefik_config(STATE_DIR)
         systemd.restart_service('traefik')
-        # up = False
-        # while not up:
-        #     up = systemd.check_service_active('traefik')
-        # await exponential_backoff(
-        #     systemd.check_service_enabled, "Proxy is not enabled", name='traefik', timeout=20
-        # )
         print('Proxy reload with new configuration complete')
 
 

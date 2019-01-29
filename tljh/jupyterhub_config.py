@@ -28,11 +28,16 @@ class UserCreatingSpawner(SystemdSpawner):
         # FIXME: This is a hack. Allow setting username directly instead
         self.username_template = system_username
         user.ensure_user(system_username)
+        print("!!!!!!!!!!!! create username")
         user.ensure_user_group(system_username, 'jupyterhub-users')
+        print("!!!!!!!!!!!! add username to jupyterhub-users")
         if self.user.admin:
+            print("!!!!!!!!!!!! we have an admin, add it to the group")
             user.ensure_user_group(system_username, 'jupyterhub-admins')
         else:
+            print("!!!!!!!!!!!! Not an admin, delete it from the group")
             user.remove_user_group(system_username, 'jupyterhub-admins')
+        print("!!!!!!!!!! start spawner")
         return super().start()
 
 c.JupyterHub.spawner_class = UserCreatingSpawner
