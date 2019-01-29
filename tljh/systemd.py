@@ -74,8 +74,6 @@ def enable_service(name):
 def check_service_active(name):
     """
     Check if a service is currently active (running)
-
-    This most likely makes the service start on bootup
     """
     try:
         subprocess.run([
@@ -90,7 +88,7 @@ def check_service_active(name):
 
 def check_hub_ready():
     """
-    Check if the hub is currently active and ready
+    Check if the hub is ready
     """
 
     try:

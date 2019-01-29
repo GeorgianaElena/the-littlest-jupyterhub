@@ -92,7 +92,7 @@ def run_test(image_name, test_name, test_files, installer_args):
     )
     run_container_command(
         test_name,
-        'python3 -m pytest -v -s {}'.format(
+        'python3 -m pytest -v {}'.format(
             ' '.join([os.path.join('/srv/src/integration-tests/', f) for f in test_files])
         )
     )
@@ -108,7 +108,7 @@ def show_logs(container_name):
     )
     run_container_command(
         container_name,
-        'systemctl -l --no-pager status jupyterhub traefik'
+        'systemctl --no-pager status jupyterhub traefik'
     )
 
 def main():

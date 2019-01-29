@@ -5,8 +5,7 @@ defaultEntryPoints = ["http", "https"]
 defaultEntryPoints = ["http"]
 {% endif %}
 
-debug = true
-logLevel = "DEBUG"
+logLevel = "INFO"
 # log errors, which could be proxy errors
 [accessLog]
 format = "json"

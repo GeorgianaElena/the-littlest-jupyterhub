@@ -68,14 +68,14 @@ jobs:
                     .circleci/integration-test.py build-image
 
             - run:
-                name: Run basic tests
-                command: |
-                    .circleci/integration-test.py run-test basic-tests test_hub.py test_install.py test_extensions.py
-
-            - run:
                 name: Run proxy test
                 command: |
                     .circleci/integration-test.py run-test basic-tests test_proxy.py
+
+            - run:
+                name: Run basic tests
+                command: |
+                    .circleci/integration-test.py run-test basic-tests test_hub.py test_install.py test_extensions.py
 
             - run:
                 name: Run plugin tests
