@@ -9,6 +9,7 @@ import requests
 
 from tljh.config import reload_component, set_config_value, CONFIG_FILE
 
+
 def test_manual_https(preserve_config):
     ssl_dir = "/etc/tljh-ssl-test"
     key = ssl_dir + "/ssl.key"

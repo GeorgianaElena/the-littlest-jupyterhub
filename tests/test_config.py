@@ -142,7 +142,8 @@ def test_cli_no_command(capsys):
 @pytest.mark.parametrize(
     "arg, value",
     [
-        ("true", True), ("FALSE", False)
+        ("true", True),
+        ("FALSE", False)
     ]
 )
 def test_cli_set_bool(tljh_dir, arg, value):

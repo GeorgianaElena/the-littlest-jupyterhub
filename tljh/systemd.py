@@ -6,6 +6,7 @@ If we use a debian package instead, we can get rid of all this code.
 import subprocess
 import os
 
+
 def reload_daemon():
     """
     Equivalent to systemctl daemon-reload.

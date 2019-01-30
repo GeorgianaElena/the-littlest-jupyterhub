@@ -155,6 +155,7 @@ def add_config_value(config_path, key_path, value):
     with open(config_path, 'w') as f:
         yaml.dump(config, f)
 
+
 def remove_config_value(config_path, key_path, value):
     """
     Remove value from list at key_path
@@ -218,6 +219,7 @@ def _is_dict(item):
 
 def _is_list(item):
     return isinstance(item, Sequence)
+
 
 def main(argv=None):
     if os.geteuid() != 0:
@@ -311,6 +313,7 @@ def main(argv=None):
         reload_component(args.component)
     else:
         argparser.print_help()
+
 
 if __name__ == '__main__':
     main()
