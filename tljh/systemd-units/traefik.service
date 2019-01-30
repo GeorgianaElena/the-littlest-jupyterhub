@@ -8,11 +8,14 @@ After=network.target
 User=root
 Restart=always
 ProtectHome=tmpfs
-WorkingDirectory={install_prefix}/state
+ProtectSystem=strict
 PrivateTmp=yes
 PrivateDevices=yes
 ProtectKernelTunables=yes
 ProtectKernelModules=yes
+ReadWritePaths={install_prefix}/state/rules.toml
+ReadWritePaths={install_prefix}/state/acme.json
+WorkingDirectory={install_prefix}/state
 ExecStart={install_prefix}/hub/bin/traefik \
             -c {install_prefix}/state/traefik.toml
 
