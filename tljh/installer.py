@@ -436,6 +436,8 @@ def ensure_config_yaml(plugin_manager):
 
 def main():
     from .log import init_logging
+    from jinja2 import Template
+
     init_logging()
 
     argparser = argparse.ArgumentParser()
@@ -456,6 +458,9 @@ def main():
     )
 
     args = argparser.parse_args()
+
+    t = Template("Hello {{ something }}!")
+    t.render(something="World")
 
     pm = setup_plugins(args.plugin)
 
