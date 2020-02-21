@@ -221,7 +221,7 @@ def ensure_jupyterhub_package(prefix):
         'jupyterhub-dummyauthenticator==0.3.1',
         'jupyterhub-systemdspawner==0.13',
         'jupyterhub-firstuseauthenticator==0.13.0',
-        'jupyterhub-nativeauthenticator==0.0.4',
+        'jupyterhub-nativeauthenticator==0.0.5',
         'jupyterhub-ldapauthenticator==1.2.2',
         'jupyterhub-tmpauthenticator==0.6',
         'oauthenticator==0.10.0',
