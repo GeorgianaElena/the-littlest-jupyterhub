@@ -118,9 +118,12 @@ def ensure_traefik_config(state_dir):
     # Ensure extra config dir exists and is private
     os.makedirs(traefik_extra_config_dir, mode=0o700, exist_ok=True)
 
-    # Load standard config file merge it with the extra config files into a dict
-    extra_config = load_extra_config(traefik_extra_config_dir)
-    new_toml = _merge_dictionaries(toml.loads(std_config), extra_config)
+    try:
+        # Load standard config file merge it with the extra config files into a dict
+        extra_config = load_extra_config(traefik_extra_config_dir)
+        new_toml = _merge_dictionaries(toml.loads(std_config), extra_config)
+    except FileNotFoundError:
+        new_toml = toml.loads(std_config)
 
     # Dump the dict into a toml-formatted string and write it to file
     with open(traefik_std_config_file, "w") as f:
