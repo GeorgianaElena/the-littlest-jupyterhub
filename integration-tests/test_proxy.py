@@ -95,10 +95,10 @@ def test_extra_traefik_config():
 
     for i in range(5):
         time.sleep(i)
-            # The new dashboard entrypoint shouldn't require authentication anymore
-            r = requests.get("http://127.0.0.1:9999/dashboard")
-            print("status codeeeeeeeeeeeeeeeeeeeeee after")
-            print(r.status_code)
-            if r.status_code == 200:
-                break;
+        # The new dashboard entrypoint shouldn't require authentication anymore
+        r = requests.get("http://127.0.0.1:9999/dashboard")
+        print("status codeeeeeeeeeeeeeeeeeeeeee after")
+        print(r.status_code)
+        if r.status_code == 200:
+            break;
 
