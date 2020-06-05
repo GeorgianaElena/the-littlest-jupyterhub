@@ -93,7 +93,7 @@ def test_extra_traefik_config():
         toml.dump(extra_config, extra_config_file)
     reload_component("proxy")
 
-     for i in range(5):
+    for i in range(5):
         time.sleep(i)
             # The new dashboard entrypoint shouldn't require authentication anymore
             r = requests.get("http://127.0.0.1:9999/dashboard")
